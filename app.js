@@ -8,17 +8,16 @@ import applicationRouter from "./routes/applicationRouter.js"
 import jobRouter from "./routes/jobRouter.js"
 import {dbConnection} from './database/dbConnection.js'
 import {errorMiddleware} from './middlewares/error.js'
+import { register } from "./controllers/userController.js";
 
 const app = express();
 dotenv.config({ path: "./config/config.env" });
-
-app.use(
-  cors({
-    origin: [process.env.FRONTEND_URL],
-    methods: ["GET", "POST", "DELETE", "PUT"],
-    Credentials: true,
-  })
-);
+app.use(cors({
+  origin: [process.env.FRONTEND_URL], 
+  credentials: true, 
+  methods: ["Post","GET","PUT","DELETE"] ,
+  allowedHeaders: 'Content-Type,Authorization', 
+}));
 
 app.use(cookieParser());
 app.use(express.json());
@@ -34,6 +33,7 @@ app.use(
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/application', applicationRouter);
 app.use('/api/v1/job', jobRouter);
+
 
 dbConnection();
 

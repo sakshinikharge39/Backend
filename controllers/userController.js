@@ -4,7 +4,11 @@ import { User } from "../models/userSchema.js";
 import { sendToken } from "../utils/jwtToken.js";
 
 export const register = catchAsyncError(async (req, res, next) => {
+  try{
+
+  
   const { name, email, phone, role, password } = req.body;
+  console.log(req.body);
   if (!name || !email || !phone || !role || !password) {
     return next(new ErrorHandler("please fill registration form"));
   }
@@ -25,6 +29,12 @@ export const register = catchAsyncError(async (req, res, next) => {
   //user,
   // })
   sendToken(user, 200, res, "User Registered Succefully!");
+  res.json(200)({message:"data saved succesuflly"})
+}catch(e){
+  console.log(e,"error message")
+  res.json({message:"error"})
+  
+}
 });
 
 export const login = catchAsyncError(async (req, res, next) => {
