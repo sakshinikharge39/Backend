@@ -31,7 +31,7 @@ export const register = catchAsyncError(async (req, res, next) => {
   sendToken(user, 200, res, "User Registered Succefully!");
   res.json(200)({message:"data saved succesuflly"})
 }catch(e){
-  console.log(e,"error message")
+  
   res.json({message:"error"})
   
 }
